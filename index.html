@@ -62,11 +62,21 @@
     </nav>
 
     <main role="main" class="container">
+        
+        <select id="repo-name" class="custom-select custom-select-lg mb-3">
+		  <option selected>Selecione o repositório</option>
+		  <!-- <option value="1">One</option> -->
+		</select>
 
-        <div class="starter-template">
-            <h1>Bootstrap starter template</h1>
-            <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-        </div>
+        <!-- <div id="repo-name" class="h2"></div> -->
+        
+        <p><strong>Stars: </strong><span class="star-count"></span></p>
+        
+        <p><strong>Forks: </strong><span class="fork-count"></span></p>
+        
+        <p><strong>Contribs: </strong><span class="contrib-count"></span></p>
+        
+        <ul class="commit-list"></ul>
 
     </main>
     <!-- /.container -->
@@ -83,13 +93,61 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     
     <script>
-        $.get("https://api.github.com/orgs/globocom/repos", function(response){
-            
-            console.log(response);
+		
+       $.get("https://api.github.com/orgs/globocom/repos", function(response){
+			
+			console.log(response);
+		   
+			for (i = 0; i < response.length; i++) { 
+				$("#repo-name").append("<option value='" + i + "'>" + response[i].name + "</option>");
+			}
+		   
+		   	$("#repo-name").change(function(){
+				
+				var id = $(this).val();
+				
+				//console.log(id);
+				
+				$(".repo-name").text(response[id].name);
+			
+				$(".fork-count").text(response[id].forks_count);
+
+				$(".star-count").text(response[id].stargazers_count);
+				
+				$.get("https://api.github.com/repos/globocom/" + response[id].name + "/contributors", function(response_contrib){
+			
+					console.log(response_contrib);
+
+					$(".contrib-count").text(response_contrib.length);
+
+				});
+				
+				$.get("https://api.github.com/repos/globocom/" + response[id].name + "/commits?rel=last&per_page=100", function(response_commit){
+			
+					console.log(response_commit);
+
+					for (i = 0; i < response_commit.length; i++) { 
+						$(".contrib-count").append("<li>" + response_commit[i].commit.author.date + "</li>");
+					}
+
+				});
+				
+			})
+
 
         });
-        
-        // $.get("https://api.github.com/repos/globocom/globodns/commits");
+		
+		
+		/*var data = {}
+		
+        $.get("https://api.github.com/orgs/globocom/repos", function(response){
+
+            console.log(response);
+            data.repos = response
+
+        });
+		
+		console.log(data); */
     </script>
 
     
