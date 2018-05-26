@@ -1,3 +1,5 @@
+$cor-primaria: #333;
+
 @font-face {
 	font-family: 'Proxima Nova';
 	src: url('fonts/proxima-nova-thin.woff2') format('woff2');
@@ -12,17 +14,61 @@
 	font-style: bold;
 }
 
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
 body {
 	font-family: 'Open Sans', sans-serif;
 }
 
-header {
-	background-color: #333;
+.id-github {
+	background-color: $cor-primaria;
 	color: white;
 	text-transform: uppercase;
+}
+
+header {
 	letter-spacing: -1px;
 }
 
 main {
-	margin: 1em 0;
+	/*margin: 1em 0;
+	width: 100vw;
+	height: 100vh;
+	margin: 0*/
+}
+
+select, .card {
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
+}
+
+.card-header {
+	border: 0;
+	border-radius: 3px 3px 0 0;
+    padding: 16px 16px 14px;
+	
+	font-family: 'Proxima Nova';
+	font-style: bold;
+}
+
+.card-value {
+	font-family: 'Proxima Nova';
+	font-weight: 300;
+	font-size: 3em;
+	margin: 0;
+}
+
+.graph-title {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 700;
+	font-size: 24px;
+	line-height: 28px;
+}
+
+.chart-container {
+	position: relative;
+	width:100%;
+	height: 35vh;
 }

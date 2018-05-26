@@ -18,7 +18,7 @@
 </head>
 <body>
    
-   <header>
+   <header class="id-github mb-md-4">
    	<div class="container-fluid">
    		<div class="row">
    			<div class="col-12">
@@ -28,12 +28,13 @@
    	</div>
    </header>
    
-    <main role="main" class="container">
+    <main role="main">
        
        <div class="container-fluid">
        
-       	<div class="row">
+       	<div class="row mb-md-3">
        		<div class="col-md-12">
+       			<p class="h2 graph-title">Selecione o repositório</p>
        			<select id="repo-name" class="custom-select custom-select-lg mb-3">
 				  <!--<option selected>Selecione o repositório</option>
 				   <option value="1">One</option> -->
@@ -41,41 +42,50 @@
        		</div>
        	</div>
        	
-       	<div class="row">
+       	<div class="row mb-md-4">
        		<div class="col-4">
        			<div class="card">
-				  <div class="card-header">
-					Stars
+				  <div class="card-header id-github">
+					Total de Stars:
 				  </div>
 				  <div class="card-body">
-					<p class="star-count"></p>
+					<p class="card-value star-count"></p>
 				  </div>
 				</div>
        		</div>
-       		<div class="col-4"></div>
-       		<div class="col-4"></div>
+       		<div class="col-4">
+       			<div class="card">
+				  <div class="card-header id-github">
+					Total de Forks:
+				  </div>
+				  <div class="card-body">
+					<p class="card-value fork-count"></p>
+				  </div>
+				</div>
+       		</div>
+       		<div class="col-4">
+       			<div class="card">
+				  <div class="card-header id-github">
+					Total de Contribs:
+				  </div>
+				  <div class="card-body">
+					<p class="card-value contrib-count"></p>
+				  </div>
+				</div>
+       		</div>
        	</div>
        	
-       	<p><strong>Stars: </strong><span class="star-count"></span></p>
-        
-        <p><strong>Forks: </strong><span class="fork-count"></span></p>
-        
-        <p><strong>Contribs: </strong><span class="contrib-count"></span></p>
-       	
-       	<div class="row">
+       	<div class="row d-block">
        		<div class="col-md-12">
-       			<canvas class="line-chart"></canvas>
+       			<p class="h2 graph-title">Histórico de Commits</p>
+       			
+       			<div class="chart-container">
+       				<canvas class="line-chart"></canvas>
+       			</div>
+       			
        		</div>
        	</div>
        </div>
-        
-        
-
-        <!-- <div id="repo-name" class="h2"></div> -->
-        
-        
-        
-        <ul class="commit-list"></ul>
 
     </main>
     <!-- /.container -->
@@ -89,123 +99,11 @@
   crossorigin="anonymous"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script> -->
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js" integrity="sha256-L3S3EDEk31HcLA5C6T2ovHvOcD80+fgqaCDt2BAi92o=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js" integrity="sha256-CfcERD4Ov4+lKbWbYqXD6aFM9M51gN4GUEtDhkWABMo=" crossorigin="anonymous"></script>
     
-    <script>
-		
-		// cria objeto
-		var jason = {
-			id: "",
-			stars: "",
-			forks: "",
-			contribs: "",
-			commitDates: [],
-			commitDatesValues: []
-		};
-		
-		// requisição
-		$.get("https://api.github.com/orgs/globocom/repos", function(response){
-
-			// loop dos repositórios
-			for (i = 0; i < response.length; i++) { 
-				$("#repo-name").append("<option value='" + i + "'>" + response[i].name + "</option>");
-			} // fim do loop
-
-			// preenche com infos do primeiro repositorio
-			jason.id = $("#repo-name").val();
-			jason.stars = response[jason.id].stargazers_count;
-			jason.forks = response[jason.id].forks_count;
-			
-			// modifica os valores em si
-			function atualizaValores(idSelect) {
-				// digita fork do repositório
-				$(".fork-count").text(jason.forks);
-
-				// digita estrelas do repositório
-				$(".star-count").text(jason.stars);
-
-				// busca Contribs
-				$.get("https://api.github.com/repos/globocom/" + response[idSelect].name + "/contributors", function(response_contrib){
-
-					//console.log(response_contrib);
-
-					$(".contrib-count").text(response_contrib.length);
-
-				});
-				
-			};
-			
-			// busca e atualiza o gráfico
-			function buscaCommits(idSelect) {
-				
-				$.get("https://api.github.com/repos/globocom/" + response[idSelect].name + "/commits?rel=last&per_page=100", function(response_commit){
-
-				for (i = 0; i < response_commit.length; i++) { 
-
-					//$(".contrib-count").append("<li>" + moment(response_commit[i].commit.author.date).format("MMM YY") + "</li>");
-
-					// coloca datas no objeto, já formatadas com Moment.js
-					jason.commitDates.push( moment(response_commit[i].commit.author.date).format("MMM YY") );
-				} // fim do loop
-				
-				// ordenar datas em ordem crescente
-				jason.commitDates = jason.commitDates.reverse();
-				
-				// conta e exporta os valores repetidos
-				var counts = {};
-					jason.commitDates.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
-				
-				jason.commitDates = Object.keys(counts);
-				jason.commitDatesValues = Object.values(counts);
-				
-				var ctx = document.getElementsByClassName("line-chart");
-		
-				var chartGraph = new Chart(ctx, {
-					type: 'line',
-					data: {
-						labels: jason.commitDates,
-						datasets: [{
-							label: "Commits",
-							data: jason.commitDatesValues,
-							borderWidth: 2,
-							borderColor: 'rgba(77, 166, 253, 0.85)',
-							backgroundColor: 'rgba(77, 166, 253, .2)'
-						}]
-					},
-					options: {
-						title: {
-							display: true,
-							fontSize: 20, 
-							text: "Histórico de Commits do Repositório"
-						},
-						labels: {
-							fontStyle: "bold"
-						}
-					}
-				});
-
-			});
-			
-			};
-			
-			atualizaValores(jason.id);
-			buscaCommits(jason.id);
-			
-			
-			// atualiza os valores a cada mudança no select
-			$("#repo-name").change(function(){
-
-				jason.id = $("#repo-name").val();
-				
-				atualizaValores(jason.id);
-				buscaCommits(jason.id);
-
-			});
-
-        });
-		
-    </script>
+    <script src="js/main.js"></script>
 
     
 </body>
