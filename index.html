@@ -100,97 +100,88 @@
     <script>
 		
 		// cria objeto
-		var jason = {};
-		
-		function logCommits() {
-			console.log(jason.commitDate);
-			console.log(jason.commitDateValues);	
-		}
-		
-		// preparra array do objeto
-		jason.commitDate = [];
+		var jason = {
+			id: "",
+			stars: "",
+			forks: "",
+			contribs: "",
+			commitDates: [],
+			commitDatesValues: []
+		};
 		
 		$.get("https://api.github.com/orgs/globocom/repos", function(response){
 			
 			// exibe resposta   
 			//console.log(response);
-		   
+
 			// loop dos repositórios
 			for (i = 0; i < response.length; i++) { 
 				$("#repo-name").append("<option value='" + i + "'>" + response[i].name + "</option>");
 			} // fim do loop
+
+			jason.id = $("#repo-name").val();
+			jason.stars = response[jason.id].stargazers_count;
+			jason.forks = response[jason.id].forks_count;
 			
-			// inclui repositórios no select   
-			var id = $("#repo-name").val();
+			function atualizaValores(idSelect) {
+				// digita fork do repositório
+				$(".fork-count").text(jason.forks);
+
+				// digita estrelas do repositório
+				$(".star-count").text(jason.stars);
+
+				// busca Contribs
+				$.get("https://api.github.com/repos/globocom/" + response[idSelect].name + "/contributors", function(response_contrib){
+
+					//console.log(response_contrib);
+
+					$(".contrib-count").text(response_contrib.length);
+
+				});
 				
-			//console.log(id);
+			};
 			
-			// digita nome do repositório
-			$(".repo-name").text(response[id].name);
-			
-			// digita fork do repositório
-			$(".fork-count").text(response[id].forks_count);
-			
-			// digita estrelas do repositório
-			$(".star-count").text(response[id].stargazers_count);
-			
-			// busca Contribs
-			$.get("https://api.github.com/repos/globocom/" + response[id].name + "/contributors", function(response_contrib){
-
-				//console.log(response_contrib);
-
-				$(".contrib-count").text(response_contrib.length);
-
-			});
-			
-			// busca Commits
-			$.get("https://api.github.com/repos/globocom/" + response[id].name + "/commits?rel=last&per_page=100", function(response_commit){
-
-				//console.log(response_commit);
+			function buscaCommits(idSelect) {
+				
+				$.get("https://api.github.com/repos/globocom/" + response[idSelect].name + "/commits?rel=last&per_page=100", function(response_commit){
 
 				for (i = 0; i < response_commit.length; i++) { 
 
-					// $(".contrib-count").append("<li>" + moment(response_commit[i].commit.author.date).format("MMM YY") + "</li>");
+					//$(".contrib-count").append("<li>" + moment(response_commit[i].commit.author.date).format("MMM YY") + "</li>");
 
 					// coloca datas no objeto, já formatadas com Moment.js
-					jason.commitDate.push( moment(response_commit[i].commit.author.date).format("MMM YY") );
+					jason.commitDates.push( moment(response_commit[i].commit.author.date).format("MMM YY") );
 				} // fim do loop
 				
 				// ordenar datas em ordem crescente
-				jason.commitDate = jason.commitDate.reverse();
-				
-				console.log(jason.commitDate);
+				jason.commitDates = jason.commitDates.reverse();
 				
 				// conta e exporta os valores repetidos
 				var counts = {};
-					jason.commitDate.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
+					jason.commitDates.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
 				
-				jason.commitDate = Object.keys(counts);
-				jason.commitDateValues = Object.values(counts);
-				
-				logCommits();
-				
-				console.log(jason);
+				jason.commitDates = Object.keys(counts);
+				jason.commitDatesValues = Object.values(counts);
 				
 				var ctx = document.getElementsByClassName("line-chart");
 		
 				var chartGraph = new Chart(ctx, {
 					type: 'line',
 					data: {
-						labels: jason.commitDate,
+						labels: jason.commitDates,
 						datasets: [{
 							label: "Commits",
-							data: jason.commitDateValues,
+							data: jason.commitDatesValues,
 							borderWidth: 2,
 							borderColor: 'rgba(77, 166, 253, 0.85)',
-							backgroundColor: 'transparent'
+							backgroundColor: 'rgba(77, 166, 253, .2)'
 						}]
 					},
 					options: {
 						title: {
 							display: true,
 							fontSize: 20, 
-							text: "Lista dos Commits"
+							text: "Histórico de Commits do Repositório"
 						},
 						labels: {
 							fontStyle: "bold"
@@ -199,8 +190,22 @@
 				});
 
 			});
+			
+			};
+			
+			atualizaValores(jason.id);
+			buscaCommits(jason.id);
 
-        }); 
+			$("#repo-name").change(function(){
+
+				jason.id = $("#repo-name").val();
+				
+				atualizaValores(jason.id);
+				buscaCommits(jason.id);
+
+			});
+
+        });
 		
     </script>
 
