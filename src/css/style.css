@@ -57,3 +57,22 @@ select, .card {
   position: relative;
   width: 100%;
   height: 35vh; }
+
+@media screen and (max-width: 768px) {
+  header .h2 {
+    font-size: 1.5em;
+    margin: 0; }
+  .card-col {
+    padding: 0 .1em; }
+  .card-header {
+    font-size: 0.6em;
+    padding: 1em 0;
+    text-align: center; }
+  .card-body {
+    padding: .5em;
+    text-align: center; } }
+
+@media screen and (max-width: 768px) {
+  /*.card-header {
+		font-size: 0.6em;
+	} */ }
