@@ -102,6 +102,11 @@
 		// cria objeto
 		var jason = {};
 		
+		function logCommits() {
+			console.log(jason.commitDate);
+			console.log(jason.commitDateValues);	
+		}
+		
 		// preparra array do objeto
 		jason.commitDate = [];
 		
@@ -113,7 +118,7 @@
 			// loop dos repositórios
 			for (i = 0; i < response.length; i++) { 
 				$("#repo-name").append("<option value='" + i + "'>" + response[i].name + "</option>");
-			}
+			} // fim do loop
 			
 			// inclui repositórios no select   
 			var id = $("#repo-name").val();
@@ -145,12 +150,53 @@
 
 				for (i = 0; i < response_commit.length; i++) { 
 
-					$(".contrib-count").append("<li>" + moment(response_commit[i].commit.author.date).format("MMM YY") + "</li>");
+					// $(".contrib-count").append("<li>" + moment(response_commit[i].commit.author.date).format("MMM YY") + "</li>");
 
-					jason.commitDate.push(response_commit[i].commit.author.date);
-				}
+					// coloca datas no objeto, já formatadas com Moment.js
+					jason.commitDate.push( moment(response_commit[i].commit.author.date).format("MMM YY") );
+				} // fim do loop
+				
+				// ordenar datas em ordem crescente
+				jason.commitDate = jason.commitDate.reverse();
+				
+				console.log(jason.commitDate);
+				
+				// conta e exporta os valores repetidos
+				var counts = {};
+					jason.commitDate.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
+				
+				jason.commitDate = Object.keys(counts);
+				jason.commitDateValues = Object.values(counts);
+				
+				logCommits();
 				
 				console.log(jason);
+				
+				var ctx = document.getElementsByClassName("line-chart");
+		
+				var chartGraph = new Chart(ctx, {
+					type: 'line',
+					data: {
+						labels: jason.commitDate,
+						datasets: [{
+							label: "Commits",
+							data: jason.commitDateValues,
+							borderWidth: 2,
+							borderColor: 'rgba(77, 166, 253, 0.85)',
+							backgroundColor: 'transparent'
+						}]
+					},
+					options: {
+						title: {
+							display: true,
+							fontSize: 20, 
+							text: "Lista dos Commits"
+						},
+						labels: {
+							fontStyle: "bold"
+						}
+					}
+				});
 
 			});
 
