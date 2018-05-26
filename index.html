@@ -81,6 +81,8 @@
     </main>
     <!-- /.container -->
     
+    <div class="json"></div>
+    
     <canvas class="line-chart"></canvas>
 
 
@@ -143,12 +145,12 @@
 
 				for (i = 0; i < response_commit.length; i++) { 
 
-					//$(".contrib-count").append("<li>" + response_commit[i].commit.author.date + "</li>");
+					$(".contrib-count").append("<li>" + moment(response_commit[i].commit.author.date).format("MMM YY") + "</li>");
 
 					jason.commitDate.push(response_commit[i].commit.author.date);
 				}
 				
-				console.log(jason.commitDate)
+				console.log(jason);
 
 			});
 
