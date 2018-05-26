@@ -1,0 +1,28 @@
+@font-face {
+	font-family: 'Proxima Nova';
+	src: url('fonts/proxima-nova-thin.woff2') format('woff2');
+	font-weight: 100;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Proxima Nova';
+	src: url('fonts/proxima-nova-bold.woff2') format('woff2');
+	font-weight: 300;
+	font-style: bold;
+}
+
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
+header {
+	background-color: #333;
+	color: white;
+	text-transform: uppercase;
+	letter-spacing: -1px;
+}
+
+main {
+	margin: 1em 0;
+}

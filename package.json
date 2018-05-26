@@ -1,0 +1,32 @@
+{
+  "name": "teste-tecnico-vml",
+  "version": "0.4.0",
+  "description": "teste técnico para vaga de front-end na VML",
+  "main": "dist/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"gulp": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/didiraja/teste-tecnico-vml.git"
+  },
+  "keywords": [
+    "teste",
+    "javascript",
+    "front-end",
+    "vml"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/didiraja/teste-tecnico-vml/issues"
+  },
+  "homepage": "https://github.com/didiraja/teste-tecnico-vml#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "browser-sync": "^2.24.4",
+    "gulp-sass": "^4.0.1",
+    "sass": "^1.3.2"
+  }
+}
