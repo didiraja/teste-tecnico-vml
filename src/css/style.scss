@@ -1,18 +1,4 @@
-$cor-primaria: #111;
-
-@font-face {
-	font-family: 'Proxima Nova';
-	src: url('fonts/proxima-nova-thin.woff2') format('woff2');
-	font-weight: 100;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'Proxima Nova';
-	src: url('fonts/proxima-nova-bold.woff2') format('woff2');
-	font-weight: 300;
-	font-style: bold;
-}
+$cor-primaria: #0669de;
 
 .octicon {
     display: inline-block;
@@ -35,7 +21,7 @@ body {
 .id-github {
 	background-color: $cor-primaria;
 	color: white;
-	text-transform: uppercase;
+	//text-transform: uppercase;
 }
 
 header {
@@ -45,7 +31,7 @@ header {
 .logo-globo {
 	fill: white;
 	width: 4em;
-    vertical-align: baseline;
+    vertical-align: middle;
 }
 
 main {
@@ -53,6 +39,10 @@ main {
 	width: 100vw;
 	height: 100vh;
 	margin: 0*/
+}
+
+#repo-name {
+	border-color: $cor-primaria;
 }
 
 select, .card {

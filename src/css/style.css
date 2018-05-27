@@ -1,15 +1,3 @@
-@font-face {
-  font-family: 'Proxima Nova';
-  src: url("fonts/proxima-nova-thin.woff2") format("woff2");
-  font-weight: 100;
-  font-style: normal; }
-
-@font-face {
-  font-family: 'Proxima Nova';
-  src: url("fonts/proxima-nova-bold.woff2") format("woff2");
-  font-weight: 300;
-  font-style: bold; }
-
 .octicon {
   display: inline-block;
   fill: currentColor;
@@ -26,9 +14,8 @@ body {
   font-family: 'Open Sans', sans-serif; }
 
 .id-github {
-  background-color: #111;
-  color: white;
-  text-transform: uppercase; }
+  background-color: #0669de;
+  color: white; }
 
 header {
   letter-spacing: -1px; }
@@ -36,13 +23,16 @@ header {
 .logo-globo {
   fill: white;
   width: 4em;
-  vertical-align: baseline; }
+  vertical-align: middle; }
 
 main {
   /*margin: 1em 0;
 	width: 100vw;
 	height: 100vh;
 	margin: 0*/ }
+
+#repo-name {
+  border-color: #0669de; }
 
 select, .card {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1); }
