@@ -1,0 +1,117 @@
+$cor-primaria: #0669de;
+
+.octicon {
+    display: inline-block;
+    fill: currentColor;
+	vertical-align: middle;
+    margin-right: .3em;
+	height: 30px;
+	color: white;
+}
+
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
+.id-github {
+	background-color: $cor-primaria;
+	color: white;
+	//text-transform: uppercase;
+}
+
+header {
+	letter-spacing: -1px;
+}
+
+.logo-globo {
+	fill: white;
+	width: 4em;
+    vertical-align: middle;
+}
+
+main {
+	/*margin: 1em 0;
+	width: 100vw;
+	height: 100vh;
+	margin: 0*/
+}
+
+#repo-name {
+	border-color: $cor-primaria;
+}
+
+select, .card {
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
+}
+
+.card-header {
+	border: 0;
+	border-radius: 3px 3px 0 0;
+    padding: 16px 16px 14px;
+	
+	font-family: 'Proxima Nova';
+	font-style: bold;
+}
+
+.card-value {
+	font-family: 'Proxima Nova';
+	font-weight: 300;
+	font-size: 3em;
+	margin: 0;
+}
+
+.graph-title {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 700;
+	font-size: 24px;
+	line-height: 28px;
+}
+
+.chart-container {
+	position: relative;
+	width:100%;
+	height: 35vh;
+}
+
+@media screen and (max-width: 768px) {
+	
+	header {
+		.h2 {
+			font-size: 1.5em;
+    		margin: 0;
+		}
+	}
+	
+	.octicon {
+		display: block;
+    	margin: 0 auto;
+    	margin-bottom: .5em;
+	}
+	
+	.card-col {
+		padding: 0;
+	}
+	
+	.card-header {
+		font-size: 0.6em;
+    	padding: 1em 0;
+    	text-align: center;
+	}
+	
+	.card-body {
+		padding: .5em;
+		text-align: center;
+	}
+}
+
+@media screen and (max-width: 320px) {
+	
+	.card-header {
+		font-size: 0.5em;
+	}
+}
