@@ -10,12 +10,6 @@ gulp.task('sass', function () {
 	
 });
 
-gulp.task('reload', function () {
-	
-	
-	
-});
-
 gulp.task('server', function() {
 	
 	browserSync.init({

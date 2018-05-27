@@ -10,6 +10,14 @@
   font-weight: 300;
   font-style: bold; }
 
+.octicon {
+  display: inline-block;
+  fill: currentColor;
+  vertical-align: middle;
+  margin-right: .3em;
+  height: 30px;
+  color: white; }
+
 html, body {
   width: 100%;
   height: 100%; }
@@ -18,12 +26,17 @@ body {
   font-family: 'Open Sans', sans-serif; }
 
 .id-github {
-  background-color: #333;
+  background-color: #111;
   color: white;
   text-transform: uppercase; }
 
 header {
   letter-spacing: -1px; }
+
+.logo-globo {
+  fill: white;
+  width: 4em;
+  vertical-align: baseline; }
 
 main {
   /*margin: 1em 0;
@@ -62,8 +75,12 @@ select, .card {
   header .h2 {
     font-size: 1.5em;
     margin: 0; }
+  .octicon {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: .5em; }
   .card-col {
-    padding: 0 .1em; }
+    padding: 0; }
   .card-header {
     font-size: 0.6em;
     padding: 1em 0;
@@ -72,7 +89,6 @@ select, .card {
     padding: .5em;
     text-align: center; } }
 
-@media screen and (max-width: 768px) {
-  /*.card-header {
-		font-size: 0.6em;
-	} */ }
+@media screen and (max-width: 320px) {
+  .card-header {
+    font-size: 0.5em; } }

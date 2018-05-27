@@ -1,4 +1,4 @@
-$cor-primaria: #333;
+$cor-primaria: #111;
 
 @font-face {
 	font-family: 'Proxima Nova';
@@ -12,6 +12,15 @@ $cor-primaria: #333;
 	src: url('fonts/proxima-nova-bold.woff2') format('woff2');
 	font-weight: 300;
 	font-style: bold;
+}
+
+.octicon {
+    display: inline-block;
+    fill: currentColor;
+	vertical-align: middle;
+    margin-right: .3em;
+	height: 30px;
+	color: white;
 }
 
 html, body {
@@ -31,6 +40,12 @@ body {
 
 header {
 	letter-spacing: -1px;
+}
+
+.logo-globo {
+	fill: white;
+	width: 4em;
+    vertical-align: baseline;
 }
 
 main {
@@ -82,8 +97,14 @@ select, .card {
 		}
 	}
 	
+	.octicon {
+		display: block;
+    	margin: 0 auto;
+    	margin-bottom: .5em;
+	}
+	
 	.card-col {
-		padding: 0 .1em;
+		padding: 0;
 	}
 	
 	.card-header {
@@ -97,10 +118,10 @@ select, .card {
 		text-align: center;
 	}
 }
-@media screen and (max-width: 768px) {
+
+@media screen and (max-width: 320px) {
 	
-	/*.card-header {
-		font-size: 0.6em;
-	} */
-	
+	.card-header {
+		font-size: 0.5em;
+	}
 }
